@@ -11,6 +11,7 @@ COPY nodemon.json ./
 
 COPY src ./src
 COPY .env ./
+COPY .env.local ./
 
 EXPOSE ${PORT}
 

@@ -1,11 +1,11 @@
 import matchesCriteria from "./utils/matchesCriteria";
 import scrapePrices from "./utils/scrapePrices";
+import sendPriceAlertEmail from "./utils/sendPriceAlertEmail";
 
 const main = async () => {
   const prices = await scrapePrices();
   const filteredPrices = prices.filter(matchesCriteria);
-
-  console.log("filteredPrices", filteredPrices);
+  await sendPriceAlertEmail(filteredPrices);
 };
 
 main();

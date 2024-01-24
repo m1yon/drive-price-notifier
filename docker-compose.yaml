@@ -12,6 +12,7 @@ services:
       - 3001:${PORT}
     env_file:
       - .env
+      - .env.local
     volumes:
       - ./:/usr/local/apps/myapp/dev
       - exclude:/usr/local/apps/myapp/dev/node_modules/
