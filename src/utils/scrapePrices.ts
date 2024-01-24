@@ -1,5 +1,18 @@
 import * as cheerio from "cheerio";
 
+export type Listing = {
+  name: string;
+  productType?: string;
+  pricePerGB?: number;
+  pricePerTB?: number;
+  price?: number;
+  capacity: string;
+  warranty?: string;
+  formFactor: string;
+  technology: string;
+  condition: string;
+};
+
 const scrapePrices = async () => {
   const html = await fetch("https://diskprices.com").then((res) => res.text());
   const $ = cheerio.load(html);
@@ -9,7 +22,7 @@ const scrapePrices = async () => {
     .map((el) => {
       const $el = $(el);
 
-      return {
+      const listing: Listing = {
         name: $el.find(".name").text(),
         productType: $el.attr("data-product-type"),
         pricePerGB:
@@ -24,6 +37,8 @@ const scrapePrices = async () => {
         technology: $($el.children().get(6)).text(),
         condition: $($el.children().get(7)).text(),
       };
+
+      return listing;
     });
 
   return prices;
