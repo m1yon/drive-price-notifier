@@ -10,8 +10,8 @@ const scrapePrices = async () => {
       const $el = $(el);
 
       return {
-        name: $(el).find(".name").text(),
-        productType: $(el).attr("data-product-type"),
+        name: $el.find(".name").text(),
+        productType: $el.attr("data-product-type"),
         pricePerGB:
           Number($($el.children().get(0)).text().replace("$", "")) ?? undefined,
         pricePerTB:
