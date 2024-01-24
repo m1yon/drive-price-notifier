@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { Listing } from "./scrapePrices";
+import PriceAlertEmail from "../../emails/price-alert";
 
 const resend = new Resend(process.env.RESEND_TOKEN!);
 
@@ -10,7 +11,7 @@ const sendPriceAlertEmail = async (listings: Listing[]) => {
     from: "Acme <onboarding@resend.dev>",
     to: process.env.RECIPIENT_EMAIL!,
     subject: "Hello World",
-    html: "<p>Congrats on sending your <strong>first email</strong>!</p>",
+    react: <PriceAlertEmail />,
   });
 
   if (error) {

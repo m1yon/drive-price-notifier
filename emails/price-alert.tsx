@@ -14,19 +14,12 @@ import {
   Section,
   Text,
 } from "@react-email/components";
-import { Tailwind } from "@react-email/tailwind";
 import * as React from "react";
 
 export const PriceAlertEmail = () => {
-  const previewText = `You have a new Price Alert`;
-
   return (
-    <Html>
-      <Head />
-      <Preview>{previewText}</Preview>
-      <Tailwind>
-        <Body>Test</Body>
-      </Tailwind>
+    <Html lang="en">
+      <Button>Click me</Button>
     </Html>
   );
 };
