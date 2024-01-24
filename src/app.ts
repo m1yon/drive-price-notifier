@@ -1,25 +1,32 @@
-import { PlaywrightCrawler, Dataset } from "crawlee";
-
-const crawler = new PlaywrightCrawler({
-  // Use the requestHandler to process each of the crawled pages.
-  async requestHandler({ request, page, enqueueLinks, pushData, log }) {
-    const title = await page.title();
-    log.info(`Title of ${request.loadedUrl} is '${title}'`);
-
-    // Save results as JSON to `./storage/datasets/default` directory.
-    await pushData({ title, url: request.loadedUrl });
-
-    // Extract links from the current page and add them to the crawling queue.
-    await enqueueLinks();
-  },
-  maxRequestsPerCrawl: 20,
-});
+import * as cheerio from "cheerio";
 
 const main = async () => {
-  await crawler.run(["https://crawlee.dev"]);
+  const html = await fetch("https://diskprices.com").then((res) => res.text());
+  const $ = cheerio.load(html);
 
-  const data = await crawler.getData();
-  console.table(data.items);
+  const prices = $("tr.disk")
+    .toArray()
+    .map((el) => {
+      const $el = $(el);
+
+      return {
+        name: $(el).find(".name").text(),
+        productType: $(el).attr("data-product-type"),
+        pricePerGB:
+          Number($($el.children().get(0)).text().replace("$", "")) ?? undefined,
+        pricePerTB:
+          Number($($el.children().get(1)).text().replace("$", "")) ?? undefined,
+        price:
+          Number($($el.children().get(2)).text().replace("$", "")) ?? undefined,
+        capacity: $($el.children().get(3)).text(),
+        warranty: $($el.children().get(4)).text() || undefined,
+        formFactor: $($el.children().get(5)).text(),
+        technology: $($el.children().get(6)).text(),
+        condition: $($el.children().get(7)).text(),
+      };
+    });
+
+  console.log("prices", prices);
 };
 
 main();

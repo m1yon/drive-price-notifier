@@ -1,9 +1,8 @@
-FROM node:18
+FROM node:20-alpine
 WORKDIR /usr/local/apps/myapp
 
 COPY package.json ./
 RUN npm install && npm cache clean --force
-RUN npx playwright install --with-deps
 ENV PATH=/usr/local/myapp/node_modules/.bin:$PATH
 
 WORKDIR /usr/local/apps/myapp/dev
