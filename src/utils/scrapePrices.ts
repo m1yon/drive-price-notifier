@@ -2,6 +2,7 @@ import * as cheerio from "cheerio";
 
 export type Listing = {
   name: string;
+  url?: string;
   productType?: string;
   pricePerGB?: number;
   pricePerTB?: number;
@@ -24,6 +25,7 @@ const scrapePrices = async () => {
 
       const listing: Listing = {
         name: $el.find(".name").text(),
+        url: $el.find(".name > a").attr("href") ?? undefined,
         productType: $el.attr("data-product-type"),
         pricePerGB:
           Number($($el.children().get(0)).text().replace("$", "")) ?? undefined,

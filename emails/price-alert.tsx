@@ -10,6 +10,7 @@ import {
   Section,
   Text,
   Tailwind,
+  Link,
 } from "@react-email/components";
 import * as React from "react";
 import type { Listing } from "@/utils/scrapePrices";
@@ -37,7 +38,7 @@ export const PriceAlertEmail = ({ listings }: PriceAlertEmailProps) => {
                   </Column>
 
                   <Column>
-                    <Text>{listing.name}</Text>
+                    <Link href={listing.url}>{listing.name}</Link>
                   </Column>
                 </Row>
               ))}
