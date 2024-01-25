@@ -8,10 +8,10 @@ const sendPriceAlertEmail = async (listings: Listing[]) => {
   console.log("Sending email...");
 
   const { data, error } = await resend.emails.send({
-    from: "Acme <onboarding@resend.dev>",
+    from: "Drive Price Notifier <alerts@resend.dev>",
     to: process.env.RECIPIENT_EMAIL!,
-    subject: "Hello World",
-    react: <PriceAlertEmail />,
+    subject: `${listings.length} New Price Alerts`,
+    react: <PriceAlertEmail listings={listings} />,
   });
 
   if (error) {
