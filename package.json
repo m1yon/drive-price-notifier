@@ -21,6 +21,7 @@
     "@react-email/components": "^0.0.14",
     "@vitejs/plugin-react": "^4.2.1",
     "cheerio": "^1.0.0-rc.12",
+    "cron": "^3.1.6",
     "react-email": "^2.0.0",
     "resend": "^3.1.0",
     "vite": "^5.0.12",
