@@ -29,7 +29,7 @@ export const PriceAlertEmail = ({ listings }: PriceAlertEmailProps) => {
             <Heading>{listings.length} New Price Alerts</Heading>
             <Section>
               {listings.map((listing) => (
-                <Row key={listing.name}>
+                <Row key={listing.name} className="mb-8">
                   <Column className="w-32">
                     <Text className="text-3xl font-bold m-0">
                       ${listing.pricePerTB?.toFixed(2)}
@@ -38,7 +38,11 @@ export const PriceAlertEmail = ({ listings }: PriceAlertEmailProps) => {
                   </Column>
 
                   <Column>
-                    <Link href={listing.url}>{listing.name}</Link>
+                    <Link href={listing.url}>
+                      {listing.name.length < 70
+                        ? listing.name
+                        : listing.name.substring(0, 70) + "..."}
+                    </Link>
                   </Column>
                 </Row>
               ))}
